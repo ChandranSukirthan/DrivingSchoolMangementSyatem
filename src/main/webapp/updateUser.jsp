@@ -5,10 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update User</title>
+    <title>Update User - Driving School</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 50px; background-color: #f4f4f4; }
-        .update-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; }
+        .navbar { background-color: #4CAF50; padding: 15px; text-align: center; }
+        .navbar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .navbar a:hover { text-decoration: underline; }
+        .update-container { max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #333; }
         input, select { width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box; }
         input[type="submit"] { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
@@ -18,6 +21,15 @@
     </style>
 </head>
 <body>
+<div class="navbar">
+    <a href="dashboard.jsp">Home</a>
+    <a href="manageUsers.jsp">Manage Users</a>
+    <a href="addInstructor.jsp">Add Instructor</a>
+    <a href="viewInstructors.jsp">View Instructors</a>
+    <a href="scheduleLesson.jsp">Schedule Lesson</a>
+    <a href="viewLessonRequests.jsp">Lesson Requests</a>
+    <a href="LogoutServlet">Logout</a>
+</div>
 <div class="update-container">
     <h2>Update User</h2>
     <%

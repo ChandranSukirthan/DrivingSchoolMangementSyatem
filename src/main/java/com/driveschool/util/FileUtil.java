@@ -1,6 +1,8 @@
 package com.driveschool.util;
 
 import com.driveschool.model.Student;
+import com.driveschool.model.Instructor;
+import com.driveschool.model.Lesson;
 import jakarta.servlet.ServletContext;
 import java.io.*;
 import java.util.ArrayList;
@@ -8,11 +10,21 @@ import java.util.List;
 
 public class FileUtil {
     private final String STUDENT_FILE_PATH;
+    private final String INSTRUCTOR_FILE_PATH;
+    private final String LESSON_REQUEST_FILE_PATH;
+    private final String SCHEDULED_LESSONS_FILE_PATH;
 
     public FileUtil(ServletContext context) {
         String dataDir = context.getRealPath("/data");
         this.STUDENT_FILE_PATH = dataDir + "/students.txt";
+        this.INSTRUCTOR_FILE_PATH = dataDir + "/instructors.txt";
+        this.LESSON_REQUEST_FILE_PATH = dataDir + "/lessonRequests.txt";
+        this.SCHEDULED_LESSONS_FILE_PATH = dataDir + "/scheduledLessons.txt";
+
         initializeFile(STUDENT_FILE_PATH);
+        initializeFile(INSTRUCTOR_FILE_PATH);
+        initializeFile(LESSON_REQUEST_FILE_PATH);
+        initializeFile(SCHEDULED_LESSONS_FILE_PATH);
     }
 
     private void initializeFile(String filePath) {
@@ -27,7 +39,7 @@ public class FileUtil {
         }
     }
 
-    // Create
+    // Existing methods for Student and Instructor (unchanged)
     public void createStudent(Student student) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(STUDENT_FILE_PATH, true))) {
             writer.write(student.toFileString());
@@ -35,7 +47,6 @@ public class FileUtil {
         }
     }
 
-    // Read
     public List<Student> readStudents() throws IOException {
         List<Student> students = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(STUDENT_FILE_PATH))) {
@@ -51,7 +62,6 @@ public class FileUtil {
         return students;
     }
 
-    // Update
     public void updateStudent(Student updatedStudent) throws IOException {
         List<Student> students = readStudents();
         List<Student> updatedList = new ArrayList<>();
@@ -65,11 +75,63 @@ public class FileUtil {
         rewriteFile(STUDENT_FILE_PATH, updatedList);
     }
 
-    // Delete
     public void deleteStudent(String username) throws IOException {
         List<Student> students = readStudents();
         students.removeIf(student -> student.getId().equals(username));
         rewriteFile(STUDENT_FILE_PATH, students);
+    }
+
+    public void createInstructor(Instructor instructor) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(INSTRUCTOR_FILE_PATH, true))) {
+            writer.write(instructor.toFileString());
+            writer.newLine();
+        }
+    }
+
+    public List<Instructor> readInstructors() throws IOException {
+        List<Instructor> instructors = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(INSTRUCTOR_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    Instructor instructor = new Instructor("", "", "", 0);
+                    instructor.fromFileString(line);
+                    instructors.add(instructor);
+                }
+            }
+        }
+        return instructors;
+    }
+
+    public void addLessonRequest(String request) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LESSON_REQUEST_FILE_PATH, true))) {
+            writer.write(request);
+            writer.newLine();
+        }
+    }
+
+    public List<String> readLessonRequests() throws IOException {
+        List<String> requests = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(LESSON_REQUEST_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    requests.add(line);
+                }
+            }
+        }
+        return requests;
+    }
+
+    public void removeLessonRequest(String request) throws IOException {
+        List<String> requests = readLessonRequests();
+        requests.remove(request);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LESSON_REQUEST_FILE_PATH))) {
+            for (String req : requests) {
+                writer.write(req);
+                writer.newLine();
+            }
+        }
     }
 
     private void rewriteFile(String filePath, List<Student> students) throws IOException {
@@ -79,5 +141,29 @@ public class FileUtil {
                 writer.newLine();
             }
         }
+    }
+
+    // New methods for Scheduled Lessons
+    public void scheduleLesson(Lesson lesson) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(SCHEDULED_LESSONS_FILE_PATH, true))) {
+            writer.write(lesson.toFileString());
+            writer.newLine();
+        }
+    }
+
+    public List<Lesson> readScheduledLessons() throws IOException {
+        List<Lesson> lessons = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(SCHEDULED_LESSONS_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    Lesson lesson = Lesson.fromFileString(line);
+                    if (lesson != null) {
+                        lessons.add(lesson);
+                    }
+                }
+            }
+        }
+        return lessons;
     }
 }

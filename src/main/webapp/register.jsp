@@ -1,17 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sukir
-  Date: 4/8/2025
-  Time: 3:41 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Register - Driving School</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 50px; background-color: #f4f4f4; }
-        .register-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; }
+        .navbar { background-color: #4CAF50; padding: 15px; text-align: center; }
+        .navbar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .navbar a:hover { text-decoration: underline; }
+        .register-container { max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #333; }
         input, select { width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box; }
         input[type="submit"] { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
@@ -21,6 +18,10 @@
     </style>
 </head>
 <body>
+<div class="navbar">
+    <a href="login.jsp">Login</a>
+    <a href="register.jsp">Register</a>
+</div>
 <div class="register-container">
     <h2>Student Registration</h2>
     <form action="RegisterServlet" method="post">
