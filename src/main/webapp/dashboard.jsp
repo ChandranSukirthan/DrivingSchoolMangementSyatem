@@ -213,7 +213,7 @@
             </div>
 
             <!-- Dashboard Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
                 <!-- Schedule Lesson Card -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg transition-all duration-300">
                     <div class="p-6">
@@ -223,7 +223,6 @@
                             </svg>
                         </div>
                         <h5 class="text-lg font-semibold text-gray-900 mb-2">Schedule a Lesson</h5>
-                        <p class="text-gray-600 mb-4">Book your driving lessons with our certified instructors</p>
                         <a href="scheduleLesson.jsp" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
                             Book a Lesson
                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -242,7 +241,6 @@
                             </svg>
                         </div>
                         <h5 class="text-lg font-semibold text-gray-900 mb-2">View My Lessons</h5>
-                        <p class="text-gray-600 mb-4">Check your scheduled lessons and progress</p>
                         <a href="viewStudentLessons.jsp" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
                             See My Lessons
                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -251,8 +249,25 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- View Progress Card -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg transition-all duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h5 class="text-lg font-semibold text-gray-900 mb-2">See Manage User</h5>
+                        <a href="manageUsers.jsp" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+                            Check Progress
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
 </main>
 

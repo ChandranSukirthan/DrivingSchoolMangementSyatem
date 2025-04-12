@@ -219,7 +219,7 @@
             <!-- Dashboard Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
                 <!-- Manage Users Card -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg transition-all duration-300">
+               <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg transition-all duration-300">
                     <div class="p-6">
                         <div class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -235,6 +235,7 @@
                         </a>
                     </div>
                 </div>
+
 
                 <!-- Add Instructor Card -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-emerald-200 hover:shadow-lg transition-all duration-300">
