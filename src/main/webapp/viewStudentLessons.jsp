@@ -2,12 +2,7 @@
 <%@ page import="com.driveschool.util.FileUtil" %>
 <%@ page import="com.driveschool.model.Lesson" %>
 <%@ page import="java.util.List" %>
-<%
-    if (session.getAttribute("username") == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
+
 <!DOCTYPE html>
 <html>
 <head>

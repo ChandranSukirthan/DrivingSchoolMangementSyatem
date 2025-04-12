@@ -31,15 +31,15 @@ public class FileUtil {
         File file = new File(filePath);
         try {
             if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+                file.getParentFile().mkdirs(); // Create the parent directory if it doesn't exist
+                file.createNewFile(); // Create the file if it doesn't exist
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to create file: " + filePath, e);
         }
     }
 
-    // Existing methods for Student and Instructor (unchanged)
+    // Methods for Students
     public void createStudent(Student student) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(STUDENT_FILE_PATH, true))) {
             writer.write(student.toFileString());
@@ -81,6 +81,7 @@ public class FileUtil {
         rewriteFile(STUDENT_FILE_PATH, students);
     }
 
+    // Methods for Instructors
     public void createInstructor(Instructor instructor) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(INSTRUCTOR_FILE_PATH, true))) {
             writer.write(instructor.toFileString());
@@ -103,6 +104,7 @@ public class FileUtil {
         return instructors;
     }
 
+    // Methods for Lesson Requests
     public void addLessonRequest(String request) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LESSON_REQUEST_FILE_PATH, true))) {
             writer.write(request);
@@ -134,16 +136,7 @@ public class FileUtil {
         }
     }
 
-    private void rewriteFile(String filePath, List<Student> students) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Student student : students) {
-                writer.write(student.toFileString());
-                writer.newLine();
-            }
-        }
-    }
-
-    // New methods for Scheduled Lessons
+    // Methods for Scheduled Lessons
     public void scheduleLesson(Lesson lesson) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(SCHEDULED_LESSONS_FILE_PATH, true))) {
             writer.write(lesson.toFileString());
@@ -165,5 +158,25 @@ public class FileUtil {
             }
         }
         return lessons;
+    }
+
+    // Helper method to rewrite the student file
+    private void rewriteFile(String filePath, List<Student> students) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Student student : students) {
+                writer.write(student.toFileString());
+                writer.newLine();
+            }
+        }
+    }
+
+    // Additional helper method to rewrite the instructor file (if needed for future updates)
+    private void rewriteInstructorFile(String filePath, List<Instructor> instructors) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Instructor instructor : instructors) {
+                writer.write(instructor.toFileString());
+                writer.newLine();
+            }
+        }
     }
 }
