@@ -1,260 +1,173 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.driveschool.util.FileUtil" %>
 <%@ page import="java.util.List" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson Requests - Driving School</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous">
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --light-color: #f8f9fa;
-        }
-
-        body {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1592740370664-2bff88666800?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-        }
-
-        .navbar {
-            background-color: var(--primary-color);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: white !important;
-        }
-
-        .nav-link {
-            color: white !important;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--light-color) !important;
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 2rem;
-        }
-
-        .dashboard-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-
-        .dashboard-card h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-        }
-
-        td {
-            background-color: white;
-        }
-
-        .action-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .action-link:hover {
-            text-decoration: underline;
-        }
-
-        .btn-back {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-        }
-
-        .btn-back:hover {
-            background-color: #45a049;
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem 0;
-            margin-top: 3rem;
-        }
-
-        footer h5 {
-            font-weight: 700;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .dashboard-card {
-                padding: 1.5rem;
-            }
-
-            .dashboard-card h2 {
-                font-size: 1.75rem;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">Driving School</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="dashboard.jsp">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="manageUsers.jsp">Manage Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="addInstructor.jsp">Add Instructor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="viewInstructors.jsp">View Instructors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="viewLessonRequests.jsp">Lesson Requests</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="LogoutServlet">Logout</a>
-                </li>
-            </ul>
+<nav class="bg-gradient-to-r from-emerald-700 to-teal-700 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="flex items-center text-white text-xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                    </svg>
+                    Driving School
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="dashboard.jsp" class="bg-emerald-800 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <a href="manageUsers.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Manage Users</a>
+                <a href="addInstructor.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Add Instructor</a>
+                <a href="viewInstructors.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">View Instructors</a>
+                <a href="viewLessonRequests.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Lesson Requests</a>
+            </div>
+            <div class="hidden md:flex items-center ml-4">
+                <a href="LogoutServlet" class="flex items-center text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Logout
+                </a>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-emerald-200 hover:text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-emerald-800">
+            <a href="dashboard.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-emerald-900">Home</a>
+            <a href="manageUsers.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Manage Users</a>
+            <a href="addInstructor.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Add Instructor</a>
+            <a href="viewInstructors.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">View Instructors</a>
+            <a href="viewLessonRequests.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Lesson Requests</a>
+            <a href="LogoutServlet" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Logout</a>
         </div>
     </div>
 </nav>
 
-<!-- Lesson Requests Content -->
-<div class="container">
-    <div class="dashboard-card">
-        <h2>Lesson Request Queue</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Student</th>
-                <th>Instructor</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                try {
-                    FileUtil fileUtil = new FileUtil(application);
-                    List<String> requests = fileUtil.readLessonRequests();
-                    if (requests.isEmpty()) {
-            %>
-            <tr>
-                <td colspan="4" style="text-align: center;">No lesson requests found.</td>
-            </tr>
-            <%
-            } else {
-                for (String lessonRequest : requests) { // Renamed 'request' to 'lessonRequest'
-                    String[] data = lessonRequest.split(",");
-                    if (data.length >= 3) { // Ensure data has enough fields
-            %>
-            <tr>
-                <td><%= data[0] %></td>
-                <td><%= data[1] %></td>
-                <td><%= data[2] %></td>
-                <td>
-                    <a href="ProcessLessonRequestServlet?request=<%= java.net.URLEncoder.encode(lessonRequest, "UTF-8") %>" class="action-link">Process</a>
-                </td>
-            </tr>
-            <%
-                        }
-                    }
-                }
-            } catch (Exception e) {
-            %>
-            <tr>
-                <td colspan="4" style="text-align: center; color: red;">Error loading requests: <%= e.getMessage() %></td>
-            </tr>
-            <%
-                }
-            %>
-            </tbody>
-        </table>
-        <a href="adminDashboard.jsp" class="btn-back">Back to Admin Dashboard</a>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Driving School</h5>
-                <p>Empowering safe and confident drivers.</p>
+<!-- Main Content -->
+<main class="flex-grow">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600">
+                <h2 class="text-2xl font-bold text-white">Lesson Request Queue</h2>
             </div>
-            <div class="col-md-6 text-md-end">
-                <p>© 2025 Driving School. All rights reserved.</p>
+
+            <!-- Table -->
+            <div class="p-6">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-emerald-600">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Student</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Instructor</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        <%
+                            try {
+                                FileUtil fileUtil = new FileUtil(application);
+                                List<String> requests = fileUtil.readLessonRequests();
+                                if (requests.isEmpty()) {
+                        %>
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">No lesson requests found.</td>
+                        </tr>
+                        <%
+                        } else {
+                            for (String lessonRequest : requests) {
+                                String[] data = lessonRequest.split(",");
+                                if (data.length >= 3) {
+                        %>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= data[0] %></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= data[1] %></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= data[2] %></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <a href="ProcessLessonRequestServlet?request=<%= java.net.URLEncoder.encode(lessonRequest, "UTF-8") %>" class="text-emerald-600 hover:text-emerald-800 hover:underline font-medium">
+                                    Process
+                                </a>
+                            </td>
+                        </tr>
+                        <%
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                        %>
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-red-600 text-center">Error loading requests: <%= e.getMessage() %></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-6 flex justify-center">
+                    <a href="dashboard.jsp" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+                        Back to Admin Dashboard
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-emerald-800 to-teal-800 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                </svg>
+                <span class="text-lg font-semibold">Driving School</span>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <p class="text-emerald-100">© 2025 Driving School. All rights reserved.</p>
+            </div>
+        </div>
+        <p class="mt-4 text-emerald-200 text-sm">Empowering safe and confident drivers.</p>
+    </div>
 </footer>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<!-- Mobile menu script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.querySelector('[aria-expanded="false"]');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+    });
+</script>
 </body>
 </html>
