@@ -30,7 +30,6 @@
                 <a href="manageUsers.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Manage Users</a>
                 <a href="addInstructor.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Add Instructor</a>
                 <a href="viewInstructors.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">View Instructors</a>
-                <a href="scheduleLesson.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Schedule Lesson</a>
                 <a href="viewLessonRequests.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Lesson Requests</a>
             </div>
             <div class="hidden md:flex items-center ml-4">
