@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/UpdateUserServlet")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/AddUser")
+public class AddUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -18,9 +18,9 @@ public class UpdateUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");
 
-        Student updatedStudent = new Student(username, password, userType);
+        Student student = new Student(username, password, userType);
         FileUtil fileUtil = new FileUtil(getServletContext());
-        fileUtil.updateStudent(updatedStudent);
+        fileUtil.createStudent(student);
 
         response.sendRedirect("manageUsers.jsp");
     }

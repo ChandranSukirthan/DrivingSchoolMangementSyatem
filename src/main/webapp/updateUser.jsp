@@ -22,13 +22,12 @@
 </head>
 <body>
 <div class="navbar">
-    <a href="dashboard.jsp">Home</a>
+    <a href="adminDashboard.">Home</a>
     <a href="manageUsers.jsp">Manage Users</a>
     <a href="addInstructor.jsp">Add Instructor</a>
     <a href="viewInstructors.jsp">View Instructors</a>
-    <a href="scheduleLesson.jsp">Schedule Lesson</a>
     <a href="viewLessonRequests.jsp">Lesson Requests</a>
-    <a href="LogoutServlet">Logout</a>
+    <a href="AdminLogoutServlet">Logout</a>
 </div>
 <div class="update-container">
     <h2>Update User</h2>
@@ -50,8 +49,9 @@
         Password: <input type="password" name="password" value="<%= studentToUpdate.getPassword() %>" required><br>
         User Type:
         <select name="userType">
-            <option value="normal" <%= studentToUpdate.getUserType().equals("normal") ? "selected" : "" %>>Normal</option>
-            <option value="premium" <%= studentToUpdate.getUserType().equals("premium") ? "selected" : "" %>>Premium</option>
+            <option value="Basic" <%= studentToUpdate.getUserType().equals("Basic") ? "selected" : "" %>>Normal</option>
+            <option value="Standard" <%= studentToUpdate.getUserType().equals("Standard") ? "selected" : "" %>>Standard</option>
+            <option value="Premium" <%= studentToUpdate.getUserType().equals("Premium") ? "selected" : "" %>>Premium</option>
         </select><br>
         <input type="submit" value="Update User">
     </form>
