@@ -1,256 +1,189 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.driveschool.util.FileUtil, com.driveschool.model.Student, java.util.List" %>
+<%@ page import="com.driveschool.util.FileUtil" %>
+<%@ page import="com.driveschool.model.Student" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manage Users - Driving School</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <title>Manage Users</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #0054fd;
-            --secondary-red: #ff0000;
-            --light-bg: #ffffff;
-            --dark-text: #2c3e50;
-            --light-text: #ffffff;
-        }
-
         body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
         }
-
-        .container {
-            background-color: var(--light-bg);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 84, 253, 0.2);
-            margin-bottom: 30px;
+        .nav-link {
+            position: relative;
         }
-
-        .page-title {
-            color: var(--primary-blue);
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-            margin-bottom: 25px;
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
         }
-
-        .search-box {
-            border: 1px solid var(--primary-blue);
+        .nav-link:hover:after {
+            width: 100%;
         }
-
-        .btn-primary-custom {
-            background-color: var(--primary-blue);
-            border: none;
-            color: var(--light-text);
-        }
-
-        .btn-primary-custom:hover {
-            background-color: #003bb7;
-        }
-
-        .btn-danger-custom {
-            background-color: var(--secondary-red);
-        }
-
-        .nav-link-custom {
-            color: var(--primary-blue);
-            margin: 0 10px;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            border: 1px solid var(--primary-blue);
-        }
-
-        .nav-link-custom:hover {
-            color: var(--light-text);
-            background-color: var(--primary-blue);
-            text-decoration: none;
-        }
-
-        .table-custom thead {
-            background-color: var(--primary-blue);
-            color: var(--light-text);
-        }
-
-        .table-custom tbody tr {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-        }
-
-        .table-custom tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .search-result-card {
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        /* Add User Button */
-        .btn-add-user {
-            background-color: #28a745;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .btn-add-user:hover {
-            background-color: #218838;
+        .active-nav:after {
+            width: 100%;
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <!-- Page Header -->
-    <header class="mb-5">
-        <h2 class="text-center page-title">Manage Users</h2>
-    </header>
-
-    <!-- Add User Button -->
-    <div class="text-end mb-4">
-        <button type="button" class="btn btn-add-user" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="fas fa-user-plus"></i> Add New User
-        </button>
-    </div>
-
-    <!-- Search Section -->
-    <section class="mb-5">
-        <form action="SearchUserServlet" method="get" class="row g-3">
-            <div class="col-md-9">
-                <input type="text" name="username" class="form-control search-box"
-                       placeholder="Search by username" required>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+<!-- Navigation -->
+<nav class="bg-gradient-to-r from-emerald-700 to-teal-700 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="flex items-center text-white text-xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                    </svg>
+                    Driving School
+                </a>
             </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary-custom w-100">Search</button>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="dashboard.jsp" class="text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Dashboard</a>
+                <a href="manageUsers.jsp" class="active-nav text-white px-3 py-2 text-sm font-medium">Manage Users</a>
             </div>
-        </form>
-    </section>
-
-    <!-- Messages Section -->
-    <section class="mb-4">
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger">${error}</div>
-        </c:if>
-        <c:if test="${not empty success}">
-            <div class="alert alert-success">${success}</div>
-        </c:if>
-        <c:if test="${not empty notFound}">
-            <div class="alert alert-warning">${notFound}</div>
-        </c:if>
-    </section>
-
-    <!-- Search Results Section -->
-    <c:if test="${not empty foundStudent}">
-        <section class="mb-5">
-            <div class="card search-result-card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Search Result</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Username:</strong> ${foundStudent.username}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>User Type:</strong> ${foundStudent.userType}</p>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <a href="updateUser.jsp?username=${foundStudent.username}"
-                           class="btn btn-warning me-2">Update</a>
-                        <a href="DeleteUserServlet?username=${foundStudent.username}"
-                           class="btn btn-danger-custom"
-                           onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                    </div>
-                </div>
+            <div class="hidden md:flex items-center ml-4">
+                <a href="LogoutServlet" class="flex items-center text-emerald-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Logout
+                </a>
             </div>
-        </section>
-    </c:if>
-
-    <!-- Users Table Section -->
-    <section class="mb-5">
-        <div class="table-responsive">
-            <table class="table table-custom table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>User Type</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    FileUtil fileUtil = new FileUtil(application);
-                    List<Student> students = fileUtil.readStudents();
-                    for (Student student : students) {
-                %>
-                <tr>
-                    <td><%= student.getUsername() %></td>
-                    <td><%= student.getUserType() %></td>
-                    <td>
-                        <a href="updateUser.jsp?username=<%= student.getUsername() %>"
-                           class="btn btn-sm btn-warning me-2">Update</a>
-                        <a href="DeleteUserServlet?username=<%= student.getUsername() %>"
-                           class="btn btn-sm btn-danger-custom"
-                           onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                    </td>
-                </tr>
-                <% } %>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Navigation Section -->
-    <nav class="d-flex flex-wrap justify-content-center">
-        <a href="viewInstructors.jsp" class="nav-link-custom m-2">Instructors</a>
-        <a href="manageUsers.jsp" class="nav-link-custom m-2">Manage Users</a>
-        <a href="addInstructor.jsp" class="nav-link-custom m-2">Add Instructor</a>
-        <a href="viewLessonRequests.jsp" class="nav-link-custom m-2">Lesson Requests</a>
-        <a href="adminDashboard.jsp" class="nav-link-custom m-2">Dashboard</a>
-    </nav>
-</div>
-
-<!-- Add User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="auth-container">
-                    <div class="auth-card">
-                        <h2>Add Student</h2>
-                        <form class="auth-form" action="AddUser" method="post">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="username" name="username" required>
-                                <label for="username" class="form-label">Username</label>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" required>
-                                <label for="password" class="form-label">Password</label>
-                            </div>
-
-                            <div class="form-group">
-                                <select class="form-control" id="userType" name="userType" required>
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="basic">Basic</option>
-                                    <option value="standard">Standard</option>
-                                    <option value="premium">Premium</option>
-                                </select>
-                                <label for="userType" class="form-label">User Type</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="md:hidden flex items-center">
+                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-emerald-200 hover:text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Font Awesome for icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-emerald-800">
+            <a href="dashboard.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Dashboard</a>
+            <a href="manageUsers.jsp" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-emerald-900">Manage Users</a>
+            <a href="LogoutServlet" class="block px-3 py-2 rounded-md text-base font-medium text-emerald-100 hover:text-white hover:bg-emerald-700">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600">
+                <h2 class="text-2xl font-bold text-white">Manage Users</h2>
+            </div>
+
+            <!-- Search Form -->
+            <div class="px-6 py-6 border-b border-gray-200">
+                <form action="SearchUserServlet" method="get" class="flex items-center space-x-4">
+                    <div class="flex-grow">
+                        <input type="text" name="username" placeholder="Search by username" required
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                    </div>
+                    <button type="submit"
+                            class="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <!-- Users Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User Type</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <%
+                        FileUtil fileUtil = new FileUtil(application);
+                        List<Student> students = fileUtil.readStudents();
+                        for (Student student : students) {
+                    %>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= student.getUsername() %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= student.getUserType() %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="updateUser.jsp?username=<%= student.getUsername() %>" class="text-emerald-600 hover:text-emerald-900 mr-4">Update</a>
+                            <a href="DeleteUserServlet?username=<%= student.getUsername() %>"
+                               onclick="return confirm('Are you sure you want to delete this user?')"
+                               class="text-red-600 hover:text-red-900">Delete</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="px-6 py-4 bg-gray-50 flex justify-between items-center">
+                <a href="register.jsp" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Add New User
+                </a>
+                <a href="dashboard.jsp" class="text-sm text-gray-600 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-emerald-800 to-teal-800 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                </svg>
+                <span class="text-lg font-semibold">Driving School</span>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <p class="text-emerald-100">© 2025 Driving School. All rights reserved.</p>
+            </div>
+        </div>
+        <p class="mt-4 text-emerald-200 text-sm">Empowering safe and confident drivers.</p>
+    </div>
+</footer>
+
+<!-- Mobile menu script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.querySelector('[aria-expanded="false"]');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+    });
+</script>
 </body>
 </html>

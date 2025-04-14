@@ -22,14 +22,14 @@
                 </a>
             </div>
             <div class="hidden md:flex items-center space-x-4">
-                <a href="adminDashboard.jsp" class="bg-yellow-500 text-black px-3 py-2 rounded-md text-sm font-semibold hover:bg-yellow-600">Home</a>
+                <a href="index.jsp" class="bg-yellow-500 text-black px-3 py-2 rounded-md text-sm font-semibold hover:bg-yellow-600">Home</a>
                 <a href="manageUsers.jsp" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Manage Users</a>
                 <a href="addInstructor.jsp" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Add Instructor</a>
                 <a href="viewInstructors.jsp" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">View Instructors</a>
                 <a href="viewLessonRequests.jsp" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Lesson Requests</a>
             </div>
             <div class="hidden md:flex items-center ml-4">
-                <a href="adminLogoutServlet" class="flex items-center text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
+                <a href="LogoutServlet" class="flex items-center text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>

@@ -1,14 +1,12 @@
 package com.driveschool.util;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
+
 import com.driveschool.model.Instructor;
 import com.driveschool.model.Lesson;
 import com.driveschool.model.Student;
 import jakarta.servlet.ServletContext;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FileUtil {
@@ -127,10 +125,10 @@ public class FileUtil {
         }
         return requests;
     }
+
     public void removeLessonRequest(String request) throws IOException {
         List<String> requests = readLessonRequests();
-        requests.removeIf(req -> req.trim().equals(request.trim()));
-
+        requests.remove(request);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LESSON_REQUEST_FILE_PATH))) {
             for (String req : requests) {
                 writer.write(req);
@@ -138,7 +136,6 @@ public class FileUtil {
             }
         }
     }
-
 
     // Methods for Scheduled Lessons
     public void scheduleLesson(Lesson lesson) throws IOException {
@@ -183,27 +180,4 @@ public class FileUtil {
             }
         }
     }
-    public void deleteLesson(String studentUsername, String instructorName, String lessonDate) throws IOException {
-        List<Lesson> lessons = readScheduledLessons();
-        lessons.removeIf(lesson -> lesson.getStudentUsername().equals(studentUsername)
-                && lesson.getInstructorName().equals(instructorName)
-                && lesson.getDate().equals(lessonDate));
-        rewriteScheduledLessonsFile(SCHEDULED_LESSONS_FILE_PATH, lessons);
-    }
-
-    private void rewriteScheduledLessonsFile(String filePath, List<Lesson> lessons) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Lesson lesson : lessons) {
-                writer.write(lesson.toFileString());
-                writer.newLine();
-            }
-        }
-    }
-    public void deleteInstructor(String name) throws IOException {
-        List<Instructor> instructors = readInstructors();
-        instructors.removeIf(instructor -> instructor.getName().equalsIgnoreCase(name));
-        rewriteInstructorFile(INSTRUCTOR_FILE_PATH, instructors);
-    }
-
-
 }
